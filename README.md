@@ -4,6 +4,8 @@ Cobalt2 themes and integrations for coding agents, terminals, and developer tool
 
 The npm package is published as `cobalt2-theme`. Use `npx` to run the installer without a global install.
 
+See [CHANGELOG.md](CHANGELOG.md) for release notes.
+
 ## Install
 
 ### Shell installer

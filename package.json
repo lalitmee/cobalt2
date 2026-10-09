@@ -1,6 +1,6 @@
 {
   "name": "cobalt2-theme",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Cobalt2 themes and installers for coding agents and developer tools",
   "type": "module",
   "bin": {
@@ -19,7 +19,8 @@
     "VERSION",
     "LICENSE",
     "THIRD_PARTY_NOTICES.md",
-    "README.md"
+    "README.md",
+    "CHANGELOG.md"
   ],
   "scripts": {
     "test": "node --test tests/*.test.js",
