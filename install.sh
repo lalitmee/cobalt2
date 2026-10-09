@@ -148,8 +148,6 @@ CODEX_HOME) root=${CODEX_HOME:-${home:+$home/.codex}} ;;
 CONFIG_HOME)
 	if [ -n "${XDG_CONFIG_HOME:-}" ]; then
 		root=$XDG_CONFIG_HOME
-	elif [ -n "${APPDATA:-}" ] && [ "$platform" = windows ]; then
-		root=$APPDATA
 	else
 		root=${home:+$home/.config}
 	fi

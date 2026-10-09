@@ -26,4 +26,5 @@ test("parses install flags and commands", () => {
     () => parseArgs(["install", "kitty", "--config-dir"]),
     /requires a path/,
   );
+  assert.throws(() => parseArgs(["list", "extra"]), /does not accept a target/);
 });

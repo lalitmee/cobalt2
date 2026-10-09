@@ -24,7 +24,7 @@ The project distributes Cobalt2 only. It does not become a catalog of unrelated 
 | Ghostty     | `themes/Cobalt2`                | Bundle and install                             |
 | bat         | `themes/cobalt2.tmTheme`        | Bundle and install                             |
 | CopyQ       | `themes/cobalt2.ini`            | Bundle and install                             |
-| Vimium      | `cobalt2.css`                   | Bundle and install                             |
+| Vimium      | `cobalt2.css`                   | Bundle and print as a manual snippet           |
 
 Neovim is excluded because Cobalt2.nvim already exists as its own package. The palette reference in the dotfiles is a source for comparing colors, not a separate installation target.
 
@@ -34,6 +34,7 @@ Neovim is excluded because Cobalt2.nvim already exists as its own package. The p
 - **WezTerm:** The current WezTerm config selects the built-in `Cobalt2` scheme. Document the built-in option rather than copying or replacing it.
 - **Codex Desktop:** Provide a standalone TOML snippet for the existing `desktop.appearanceDarkChromeTheme` customization. Keep it manual: do not rewrite or append to the user's config automatically. The current config already contains this table, so blindly appending another declaration would be invalid TOML. The theme behavior should be verified in the app before describing its coverage as complete.
 - **Git/delta and Gum:** The dotfiles contain Cobalt2 color settings for these tools, but not dedicated theme files. Capture useful settings as clearly labeled snippets or documentation; do not edit a user's existing Git or shell configuration automatically in phase one.
+- **Vimium:** Bundle the existing Cobalt2 CSS and provide it as a snippet for the extension's Custom CSS option. Vimium applies this through its options page, so there is no stable theme file path for an installer to target.
 - **ChatGPT main interface:** Out of scope. Its documented desktop appearance controls offer light/dark/system and preset accent colors, not a custom Cobalt2 theme file or custom accent value.
 
 ## Architecture
@@ -51,7 +52,7 @@ Support is per application and operating system. The `npx` CLI can run on Window
 
 ## Install behavior
 
-The installers install one selected target at a time. They create the theme directory if needed and copy only the theme asset; they do not activate themes by editing app settings. Codex Desktop, WezTerm, Git/delta, and Gum instructions are provided as manual snippets or built-in-theme guidance.
+The installers install one selected target at a time. They create the theme directory if needed and copy only the theme asset; they do not activate themes by editing app settings. Vimium CSS, Codex Desktop, Git/delta, and Gum are manual snippets; WezTerm uses its built-in theme.
 
 Both installers support:
 

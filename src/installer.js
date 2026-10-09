@@ -40,9 +40,7 @@ export function resolveDeclaredRootAndSuffix(
   const roots = {
     HOME: home,
     CODEX_HOME: env.CODEX_HOME || (home && join(home, ".codex")),
-    CONFIG_HOME:
-      env.XDG_CONFIG_HOME ||
-      (platform === "win32" ? env.APPDATA : home && join(home, ".config")),
+    CONFIG_HOME: env.XDG_CONFIG_HOME || (home && join(home, ".config")),
     PI_AGENT_DIR:
       env.PI_CODING_AGENT_DIR || (home && join(home, ".pi", "agent")),
     APPDATA: env.APPDATA,
@@ -61,6 +59,9 @@ export function resolveDestination(
   platform = process.platform,
   override,
 ) {
+  if (override !== undefined && !isAbsolute(override)) {
+    throw new Error("--config-dir must be an absolute path");
+  }
   const { root, suffix } = resolveDeclaredRootAndSuffix(
     row.destination,
     env,
@@ -105,10 +106,11 @@ export async function installTarget(row, options = {}) {
     throw new Error("destination must be an absolute path");
   let content;
   if (row.kind === "copy") {
+    const sourceRoot = resolve(projectRoot);
     const source = options.sourcePath
       ? resolve(options.sourcePath)
-      : resolve(projectRoot, row.source);
-    if (!options.sourcePath && !source.startsWith(`${projectRoot}${sep}`))
+      : resolve(sourceRoot, row.source);
+    if (!options.sourcePath && !source.startsWith(`${sourceRoot}${sep}`))
       throw new Error(`unsafe source path: ${row.source}`);
     content = await readFile(source);
   } else {

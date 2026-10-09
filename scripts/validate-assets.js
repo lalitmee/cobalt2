@@ -1,10 +1,19 @@
 import { createHash } from "node:crypto";
+import { readFileSync } from "node:fs";
 import { readFile, readdir } from "node:fs/promises";
 import { extname, isAbsolute, join, relative, resolve, sep } from "node:path";
 import { fileURLToPath } from "node:url";
 import { parseCatalog } from "../src/catalog.js";
 
 const repoRoot = fileURLToPath(new URL("../", import.meta.url));
+
+export function validateJson(text, label = "JSON file") {
+  try {
+    return JSON.parse(text);
+  } catch (error) {
+    throw new Error(`${label} is invalid JSON: ${error.message}`);
+  }
+}
 
 export function validateToml(text) {
   const keys = new Set();
@@ -71,6 +80,42 @@ export function verifyUpstream(content, expected) {
   return actual;
 }
 
+export function validatePaletteExceptions(rows, root, palette, exceptions) {
+  const allowed = new Set(
+    Object.values(palette).map((value) => value.toLowerCase()),
+  );
+  for (const row of rows) {
+    if (!row.source.startsWith("themes/")) continue;
+    const content = readFileSync(join(root, row.source), "utf8");
+    const deviations = [
+      ...new Set(content.match(/#[0-9a-f]{6}/gi) || []),
+    ].filter((color) => !allowed.has(color.toLowerCase()));
+    if (deviations.length && !exceptions[row.id]) {
+      throw new Error(
+        `palette deviations for ${row.id} need a documented exception: ${deviations.join(", ")}`,
+      );
+    }
+    if (exceptions[row.id] && typeof exceptions[row.id] !== "string") {
+      throw new Error(`palette exception for ${row.id} must include a reason`);
+    }
+  }
+}
+
+export async function validatePackageVersion(root) {
+  const packageMetadata = validateJson(
+    await readFile(join(root, "package.json"), "utf8"),
+    "package.json",
+  );
+  const shellReleaseVersion = (
+    await readFile(join(root, "VERSION"), "utf8")
+  ).trim();
+  if (packageMetadata.version !== shellReleaseVersion) {
+    throw new Error(
+      `package version ${packageMetadata.version} does not match shell release version ${shellReleaseVersion}`,
+    );
+  }
+}
+
 async function filesBelow(root) {
   const entries = await readdir(root, { withFileTypes: true });
   const files = [];
@@ -114,6 +159,7 @@ export async function validateAssetSet(
   root = repoRoot,
   { verifyRemote = true, fetchImpl = fetch } = {},
 ) {
+  await validatePackageVersion(root);
   const manifestText = await readFile(
     join(root, "catalog/targets.psv"),
     "utf8",
@@ -177,7 +223,7 @@ export async function validateAssetSet(
       );
     const ext = extname(path).toLowerCase();
     const text = await readFile(path, "utf8");
-    if (ext === ".json") JSON.parse(text);
+    if (ext === ".json") validateJson(text, relativePath);
     if (ext === ".tmtheme") validatePlist(text, relativePath);
     if (ext === ".ini") validateIni(text, relativePath);
     if (relativePath === "themes/ghostty/Cobalt2") validateGhostty(text);
@@ -185,14 +231,20 @@ export async function validateAssetSet(
       throw new Error(`Vimium theme has no :root style block: ${relativePath}`);
   }
 
-  const palette = JSON.parse(
+  const palette = validateJson(
     await readFile(join(root, "palette/cobalt2.json"), "utf8"),
+    "palette/cobalt2.json",
   );
   if (
     !Object.keys(palette).length ||
     Object.values(palette).some((value) => !/^#[0-9a-f]{6}$/i.test(value))
   )
     throw new Error("canonical palette contains an invalid color value");
+  const exceptions = validateJson(
+    await readFile(join(root, "palette/exceptions.json"), "utf8"),
+    "palette/exceptions.json",
+  );
+  validatePaletteExceptions(rows, root, palette, exceptions);
   validateToml(
     await readFile(join(root, "snippets/codex-desktop.toml"), "utf8"),
   );

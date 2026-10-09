@@ -9,7 +9,7 @@ import {
   writeFile,
 } from "node:fs/promises";
 import { tmpdir } from "node:os";
-import { dirname, join, resolve } from "node:path";
+import { dirname, isAbsolute, join, resolve } from "node:path";
 import { installTarget, resolveDestination } from "../src/installer.js";
 
 test("installs, is idempotent, refuses conflicts, backs up on force, and supports dry run", async () => {
@@ -82,6 +82,46 @@ test("resolves config directory overrides and rejects traversal", () => {
       ),
     /unsafe/,
   );
+  assert.throws(
+    () =>
+      resolveDestination(
+        row,
+        { HOME: tmpdir(), CODEX_HOME: join(tmpdir(), ".codex") },
+        "linux",
+        "relative config",
+      ),
+    /absolute/,
+  );
+});
+
+test("resolves declared roots on the current operating system", () => {
+  const destination = resolveDestination(
+    { destination: "CODEX_HOME/themes/cobalt2.tmTheme" },
+    process.env,
+    process.platform,
+  );
+  assert.equal(isAbsolute(destination), true);
+  assert.equal(destination.endsWith(join("themes", "cobalt2.tmTheme")), true);
+});
+
+test("copies a declared repository theme asset into the selected destination", async () => {
+  const root = await mkdtemp(join(tmpdir(), "cobalt2 bundled asset "));
+  try {
+    const destination = join(root, "themes", "cobalt2.tmTheme");
+    const row = {
+      id: "codex-cli",
+      kind: "copy",
+      source: "themes/shared/cobalt2.tmTheme",
+      destination: "CODEX_HOME/themes/cobalt2.tmTheme",
+    };
+    assert.equal(
+      (await installTarget(row, { destination })).status,
+      "installed",
+    );
+    assert.match(await readFile(destination, "utf8"), /<plist/);
+  } finally {
+    await rm(root, { recursive: true, force: true });
+  }
 });
 
 test("upstream hash mismatch never creates destination", async () => {

@@ -19,6 +19,8 @@ export function parseArgs(argv) {
   }
   if (!["help", "list", "install", "snippet"].includes(command))
     throw new Error(`unknown command: ${command}`);
+  if ((command === "help" || command === "list") && target)
+    throw new Error(`${command} does not accept a target`);
   if ((command === "install" || command === "snippet") && !target)
     throw new Error(`${command} requires a target`);
   if (

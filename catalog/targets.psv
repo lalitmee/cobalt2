@@ -10,6 +10,6 @@ copyq|copy|linux,macos|themes/copyq/cobalt2.ini|CONFIG_HOME/copyq/themes/cobalt2
 kitty|upstream|linux,macos|https://raw.githubusercontent.com/lalitmee/kitty-cobalt2/4f5f9e7c798f5f5cc4b490390d82b25b6385a3f2/cobalt2.conf|CONFIG_HOME/kitty/themes/cobalt2.conf|69ed40d60ba8948629d577fdc39de992cc558d38b56afcf43d304e4fdb035567|README.md#kitty
 vimium|snippet|linux,macos,windows|themes/vimium/cobalt2.css|||README.md#vimium
 codex-desktop|snippet|linux,macos,windows|snippets/codex-desktop.toml|||README.md#codex-desktop
-git-delta|snippet|linux,macos,windows|snippets/git-delta.gitconfig|||README.md#git-delta
+git-delta|snippet|linux,macos,windows|snippets/git-delta.gitconfig|||README.md#git-and-delta
 gum|snippet|linux,macos,windows|snippets/gum.sh|||README.md#gum
 wezterm|builtin|linux,macos,windows||||README.md#wezterm

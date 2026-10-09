@@ -1,0 +1,9 @@
+{
+  "claude-code": "Claude Code adds alert and status colors to the shared Cobalt2 palette.",
+  "codex-cli": "The shared TextMate theme retains syntax-scope colors from the classic Cobalt2 editor theme.",
+  "opencode": "OpenCode defines additional semantic variants and light-mode aliases for its theme schema.",
+  "pi": "Pi defines additional semantic variants and muted states for its TUI theme schema.",
+  "tmux": "The tmux theme keeps its existing cyan accent token alongside the shared Cobalt2 colors.",
+  "bat": "The shared TextMate theme retains syntax-scope colors from the classic Cobalt2 editor theme.",
+  "copyq": "CopyQ uses black and orange values for application-specific selection and editor controls."
+}

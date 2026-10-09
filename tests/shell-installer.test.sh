@@ -34,4 +34,9 @@ if sh "$ROOT/install.sh" install no-such-theme --config-dir "$TEMP/invalid"; the
 	exit 1
 fi
 test ! -e "$TEMP/invalid"
+if (cd "$TEMP" && sh "$ROOT/install.sh" install claude-code --config-dir "relative config"); then
+	echo 'expected relative config directory to fail' >&2
+	exit 1
+fi
+test ! -e "$TEMP/relative config"
 echo 'shell installer checks passed'
