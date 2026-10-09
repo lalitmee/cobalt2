@@ -1,0 +1,15 @@
+# id|kind|platforms|source|destination|sha256|guide
+claude-code|copy|linux,macos,windows|themes/claude/cobalt2.json|HOME/.claude/themes/cobalt2.json||guides/claude-code.md
+codex-cli|copy|linux,macos,windows|themes/shared/cobalt2.tmTheme|CODEX_HOME/themes/cobalt2.tmTheme||guides/codex-cli.md
+opencode|copy|linux,macos,windows|themes/opencode/cobalt2-custom.json|CONFIG_HOME/opencode/themes/cobalt2-custom.json||guides/opencode.md
+pi|copy|linux,macos,windows|themes/pi/cobalt2.json|PI_AGENT_DIR/themes/cobalt2.json||guides/pi.md
+tmux|copy|linux,macos|themes/tmux/cobalt2.conf|CONFIG_HOME/tmux/themes/cobalt2.conf||guides/tmux.md
+ghostty|copy|linux,macos|themes/ghostty/Cobalt2|CONFIG_HOME/ghostty/themes/Cobalt2||guides/ghostty.md
+bat|copy|linux,macos|themes/shared/cobalt2.tmTheme|CONFIG_HOME/bat/themes/Cobalt2.tmTheme||guides/bat.md
+copyq|copy|linux,macos|themes/copyq/cobalt2.ini|CONFIG_HOME/copyq/themes/cobalt2.ini||guides/copyq.md
+kitty|upstream|linux,macos|https://raw.githubusercontent.com/lalitmee/kitty-cobalt2/4f5f9e7c798f5f5cc4b490390d82b25b6385a3f2/cobalt2.conf|CONFIG_HOME/kitty/themes/cobalt2.conf|69ed40d60ba8948629d577fdc39de992cc558d38b56afcf43d304e4fdb035567|guides/kitty.md
+vimium|snippet|linux,macos,windows|themes/vimium/cobalt2.css|||guides/vimium.md
+codex-desktop|snippet|linux,macos,windows|snippets/codex-desktop.toml|||guides/codex-desktop.md
+git-delta|snippet|linux,macos,windows|snippets/git-delta.gitconfig|||guides/git-delta.md
+gum|snippet|linux,macos,windows|snippets/gum.sh|||guides/gum.md
+wezterm|builtin|linux,macos,windows|||guides/wezterm.md

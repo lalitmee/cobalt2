@@ -1,0 +1,7 @@
+# Merge these keys into [desktop.appearanceDarkChromeTheme] in config.toml.
+accent = "#00AAFF"
+accentSource = "chatgpt"
+contrast = 60
+ink = "#FFFFFF"
+opaqueWindows = false
+surface = "#193549"

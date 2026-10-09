@@ -1,0 +1,3 @@
+# Merge into the existing [delta] section in ~/.gitconfig.
+[delta]
+    syntax-theme = cobalt2
