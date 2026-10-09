@@ -6,12 +6,11 @@ Notable changes to Cobalt2 Themes are recorded here.
 
 ### Added
 
-- Add examples to the CLI and shell installer help.
-- Support `-h` and `--help` in the npm CLI.
+- cli: add command examples to help
 
-### Changed
+### Fixed
 
-- Align target listings in the npm CLI and shell installer.
+- cli: align theme list columns
 
 ## 0.1.0 - 2026-10-10
 

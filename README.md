@@ -190,8 +190,28 @@ This repository distributes Cobalt2 only. The Neovim theme remains in the separa
 
 ## Development and checks
 
+Run the release checks locally before preparing a release:
+
 ```sh
 npm ci
+npm run check:release
+```
+
+`check:release` runs the test suite, asset validation, formatting check, native theme validation, and package dry run. GitHub Actions also checks the POSIX installer and shell snippets on Linux and macOS.
+
+Prepare release notes and synchronize the npm and shell installer versions with a Conventional Commit range:
+
+```sh
+npm run release:prepare -- 0.1.2 --since <tag-or-commit> --date YYYY-MM-DD
+npm run check:release
+npm publish
+```
+
+The baseline is required because the repository may not have a release tag yet. The date is optional; without it, the generator uses the local date. Review `CHANGELOG.md` and the version changes before publishing. `npm publish` runs `check:release` automatically through `prepublishOnly`.
+
+For individual checks:
+
+```sh
 npm test
 npm run validate
 python3 scripts/validate-native.py
