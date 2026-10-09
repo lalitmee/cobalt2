@@ -11,10 +11,19 @@ trap cleanup EXIT HUP INT TERM
 
 usage() {
 	cat <<'EOF'
+Install Cobalt2 themes for coding agents and developer tools.
+
 Usage:
   ./install.sh list
   ./install.sh install <target> [--dry-run] [--force] [--config-dir <path>]
   ./install.sh snippet <target>
+
+Examples:
+  ./install.sh list
+  ./install.sh install codex-cli
+  ./install.sh install codex-cli --dry-run
+  ./install.sh install claude-code --config-dir "$HOME/custom-config"
+  ./install.sh snippet codex-desktop
 EOF
 }
 

@@ -4,7 +4,10 @@ import { findTarget, loadCatalog } from "./catalog.js";
 import { installTarget } from "./installer.js";
 
 export function parseArgs(argv) {
-  const [command = "help", target, ...args] = argv;
+  const [inputCommand = "help", target, ...args] = argv;
+  const command = ["-h", "--help"].includes(inputCommand)
+    ? "help"
+    : inputCommand;
   const options = { dryRun: false, force: false, configDir: undefined };
   for (let index = 0; index < args.length; index += 1) {
     const arg = args[index];
@@ -45,9 +48,29 @@ export async function run(
 ) {
   const parsed = parseArgs(argv);
   if (parsed.command === "help") {
-    io.stdout.write(
-      "Usage: cobalt2-theme list | install <target> [--dry-run] [--force] [--config-dir <path>] | snippet <target>\n",
-    );
+    io.stdout.write(`Cobalt2 themes for coding agents and developer tools.
+
+Usage:
+  cobalt2-theme <command> [options]
+
+Commands:
+  list                       List available targets and platforms
+  install <target>           Install one theme target
+  snippet <target>           Print a setup snippet or built-in instructions
+  help                       Show this help
+
+Install options:
+  --dry-run                  Show the destination without writing a file
+  --force                    Back up an existing file before replacing it
+  --config-dir <path>        Use an absolute configuration directory
+
+Examples:
+  npx --yes cobalt2-theme list
+  npx --yes cobalt2-theme install codex-cli
+  npx --yes cobalt2-theme install codex-cli --dry-run
+  npx --yes cobalt2-theme install claude-code --config-dir "$HOME/custom-config"
+  npx --yes cobalt2-theme snippet codex-desktop
+`);
     return 0;
   }
   const rows = await loadCatalog();

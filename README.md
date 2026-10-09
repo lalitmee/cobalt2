@@ -2,7 +2,7 @@
 
 Cobalt2 themes and integrations for coding agents, terminals, and developer tools. Install one target at a time with the POSIX shell installer or the npm CLI.
 
-The npm package is prepared but has not been published yet; `npx` commands will work after the first release.
+The npm package is published as `cobalt2-theme`. Use `npx` to run the installer without a global install.
 
 ## Install
 
