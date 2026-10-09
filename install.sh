@@ -35,7 +35,21 @@ help | -h | --help)
 	exit 0
 	;;
 list)
-	awk -F '|' 'NF == 7 && $1 !~ /^#/ { print $1 "\t" $2 "\t" $3 }' "$MANIFEST"
+	awk -F '|' '
+		NF == 7 && $1 !~ /^#/ {
+			count++
+			ids[count] = $1
+			kinds[count] = $2
+			platforms[count] = $3
+			if (length($1) > id_width) id_width = length($1)
+			if (length($2) > kind_width) kind_width = length($2)
+		}
+		END {
+			for (i = 1; i <= count; i++) {
+				printf "%-*s  %-*s  %s\n", id_width, ids[i], kind_width, kinds[i], platforms[i]
+			}
+		}
+	' "$MANIFEST"
 	exit 0
 	;;
 install | snippet) ;;

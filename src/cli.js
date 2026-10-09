@@ -52,8 +52,13 @@ export async function run(
   }
   const rows = await loadCatalog();
   if (parsed.command === "list") {
-    for (const row of rows)
-      io.stdout.write(`${row.id}\t${row.kind}\t${row.platforms.join(", ")}\n`);
+    const idWidth = Math.max(...rows.map((row) => row.id.length));
+    const kindWidth = Math.max(...rows.map((row) => row.kind.length));
+    for (const row of rows) {
+      io.stdout.write(
+        `${row.id.padEnd(idWidth)}  ${row.kind.padEnd(kindWidth)}  ${row.platforms.join(", ")}\n`,
+      );
+    }
     return 0;
   }
   const row = findTarget(rows, parsed.target, currentPlatform(platform));
