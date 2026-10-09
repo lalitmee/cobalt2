@@ -1,0 +1,51 @@
+name: Theme validation
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    name: Validate on ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          cache: npm
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+      - run: npm ci
+      - run: npm test
+      - run: npm run validate
+      - run: python scripts/validate-native.py
+      - run: npm run format:check
+      - run: npm pack --dry-run
+      - name: Install POSIX shell validators
+        if: runner.os != 'Windows'
+        shell: bash
+        run: |
+          if [[ "$RUNNER_OS" == "Linux" ]]; then
+            sudo apt-get update
+            sudo apt-get install --yes shellcheck shfmt
+          else
+            brew install shellcheck shfmt
+          fi
+      - name: Validate POSIX installer and theme scripts
+        if: runner.os != 'Windows'
+        shell: bash
+        run: |
+          sh -n install.sh tests/shell-installer.test.sh snippets/gum.sh
+          bash -n themes/tmux/cobalt2.conf
+          shellcheck install.sh tests/shell-installer.test.sh snippets/gum.sh
+          shfmt -d install.sh tests/shell-installer.test.sh snippets/gum.sh
+          sh tests/shell-installer.test.sh

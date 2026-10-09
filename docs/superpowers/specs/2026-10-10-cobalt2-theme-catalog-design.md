@@ -14,17 +14,17 @@ The project distributes Cobalt2 only. It does not become a catalog of unrelated 
 
 ### Theme assets already in the dotfiles
 
-| Tool | Existing asset | First-phase handling |
-| --- | --- | --- |
-| Claude Code | `.claude/themes/cobalt2.json` | Bundle and install |
-| Codex CLI | `.codex/themes/cobalt2.tmTheme` | Bundle and install |
-| OpenCode | `themes/cobalt2-custom.json` | Bundle and install |
-| Pi | `themes/cobalt2.json` | Bundle and install |
-| tmux | `themes/cobalt2.conf` | Bundle and install; review palette consistency |
-| Ghostty | `themes/Cobalt2` | Bundle and install |
-| bat | `themes/cobalt2.tmTheme` | Bundle and install |
-| CopyQ | `themes/cobalt2.ini` | Bundle and install |
-| Vimium | `cobalt2.css` | Bundle and install |
+| Tool        | Existing asset                  | First-phase handling                           |
+| ----------- | ------------------------------- | ---------------------------------------------- |
+| Claude Code | `.claude/themes/cobalt2.json`   | Bundle and install                             |
+| Codex CLI   | `.codex/themes/cobalt2.tmTheme` | Bundle and install                             |
+| OpenCode    | `themes/cobalt2-custom.json`    | Bundle and install                             |
+| Pi          | `themes/cobalt2.json`           | Bundle and install                             |
+| tmux        | `themes/cobalt2.conf`           | Bundle and install; review palette consistency |
+| Ghostty     | `themes/Cobalt2`                | Bundle and install                             |
+| bat         | `themes/cobalt2.tmTheme`        | Bundle and install                             |
+| CopyQ       | `themes/cobalt2.ini`            | Bundle and install                             |
+| Vimium      | `cobalt2.css`                   | Bundle and install                             |
 
 Neovim is excluded because Cobalt2.nvim already exists as its own package. The palette reference in the dotfiles is a source for comparing colors, not a separate installation target.
 

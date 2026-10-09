@@ -12,13 +12,20 @@ export function parseArgs(argv) {
     else if (arg === "--force") options.force = true;
     else if (arg === "--config-dir") {
       const path = args[++index];
-      if (!path || path.startsWith("--")) throw new Error("--config-dir requires a path");
+      if (!path || path.startsWith("--"))
+        throw new Error("--config-dir requires a path");
       options.configDir = path;
     } else throw new Error(`unknown option: ${arg}`);
   }
-  if (!["help", "list", "install", "snippet"].includes(command)) throw new Error(`unknown command: ${command}`);
-  if ((command === "install" || command === "snippet") && !target) throw new Error(`${command} requires a target`);
-  if (command !== "install" && (options.dryRun || options.force || options.configDir)) throw new Error("install options are only valid with install");
+  if (!["help", "list", "install", "snippet"].includes(command))
+    throw new Error(`unknown command: ${command}`);
+  if ((command === "install" || command === "snippet") && !target)
+    throw new Error(`${command} requires a target`);
+  if (
+    command !== "install" &&
+    (options.dryRun || options.force || options.configDir)
+  )
+    throw new Error("install options are only valid with install");
   return { command, target, options };
 }
 
@@ -28,26 +35,38 @@ function currentPlatform(platform = process.platform) {
   return "linux";
 }
 
-export async function run(argv = process.argv.slice(2), io = process, env = process.env, platform = process.platform) {
+export async function run(
+  argv = process.argv.slice(2),
+  io = process,
+  env = process.env,
+  platform = process.platform,
+) {
   const parsed = parseArgs(argv);
   if (parsed.command === "help") {
-    io.stdout.write("Usage: cobalt2-theme list | install <target> [--dry-run] [--force] [--config-dir <path>] | snippet <target>\n");
+    io.stdout.write(
+      "Usage: cobalt2-theme list | install <target> [--dry-run] [--force] [--config-dir <path>] | snippet <target>\n",
+    );
     return 0;
   }
   const rows = await loadCatalog();
   if (parsed.command === "list") {
-    for (const row of rows) io.stdout.write(`${row.id}\t${row.kind}\t${row.platforms.join(", ")}\n`);
+    for (const row of rows)
+      io.stdout.write(`${row.id}\t${row.kind}\t${row.platforms.join(", ")}\n`);
     return 0;
   }
   const row = findTarget(rows, parsed.target, currentPlatform(platform));
   if (parsed.command === "snippet") {
     if (row.kind === "snippet") {
-      const source = fileURLToPath(new URL(`../${row.source}`, import.meta.url));
+      const source = fileURLToPath(
+        new URL(`../${row.source}`, import.meta.url),
+      );
       io.stdout.write(await readFile(source, "utf8"));
       return 0;
     }
     if (row.kind === "builtin") {
-      io.stdout.write("WezTerm includes the Cobalt2 scheme. Set color_scheme = 'Cobalt2' in your WezTerm configuration.\n");
+      io.stdout.write(
+        "WezTerm includes the Cobalt2 scheme. Set color_scheme = 'Cobalt2' in your WezTerm configuration.\n",
+      );
       return 0;
     }
     throw new Error(`'${row.id}' is an installable file target, not a snippet`);
@@ -59,7 +78,9 @@ export async function run(argv = process.argv.slice(2), io = process, env = proc
     env,
     platform,
   });
-  io.stdout.write(`${result.status}: ${result.target} -> ${result.destination}${result.backupPath ? ` (backup: ${result.backupPath})` : ""}\n`);
+  io.stdout.write(
+    `${result.status}: ${result.target} -> ${result.destination}${result.backupPath ? ` (backup: ${result.backupPath})` : ""}\n`,
+  );
   return 0;
 }
 

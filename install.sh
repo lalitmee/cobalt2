@@ -179,7 +179,7 @@ fi
 
 parent=${destination_path%/*}
 mkdir -p "$parent"
-TEMP_FILE="$parent/.cobalt2-theme.$$"
+TEMP_FILE=$(mktemp "$parent/.cobalt2-theme.XXXXXX")
 if [ "$kind" = copy ]; then
 	cp "$source_path" "$TEMP_FILE"
 else

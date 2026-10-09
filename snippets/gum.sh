@@ -1,3 +1,4 @@
+#!/bin/sh
 # Source this from your shell config or merge selected variables.
 export GUM_FILTER_INDICATOR_FOREGROUND="#00AAFF"
 export GUM_FILTER_MATCH_FOREGROUND="#FFC600"
