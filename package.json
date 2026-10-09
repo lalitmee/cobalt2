@@ -1,0 +1,31 @@
+{
+  "name": "cobalt2-theme",
+  "version": "0.1.0",
+  "description": "Cobalt2 themes and installers for coding agents and developer tools",
+  "type": "module",
+  "bin": {
+    "cobalt2-theme": "bin/cobalt2-theme.js"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "files": [
+    "bin/",
+    "src/",
+    "catalog/",
+    "themes/",
+    "palette/",
+    "snippets/",
+    "LICENSE",
+    "THIRD_PARTY_NOTICES.md",
+    "README.md"
+  ],
+  "scripts": {
+    "test": "node --test tests/*.test.js",
+    "validate": "node scripts/validate-assets.js",
+    "format:check": "prettier --check ."
+  },
+  "devDependencies": {
+    "prettier": "^3.6.2"
+  }
+}
