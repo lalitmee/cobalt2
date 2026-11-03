@@ -2,6 +2,7 @@ import { readFile } from "node:fs/promises";
 import { fileURLToPath } from "node:url";
 import { findTarget, loadCatalog } from "./catalog.js";
 import { installTarget } from "./installer.js";
+import * as ui from "./ui.js";
 
 export function parseArgs(argv) {
   const [inputCommand = "help", target, ...args] = argv;
@@ -46,6 +47,21 @@ export async function run(
   env = process.env,
   platform = process.platform,
 ) {
+  const fancy = ui.isInteractive(io, env);
+  if (fancy && argv.length === 0) {
+    const rows = await loadCatalog();
+    const ids = await ui.pick(rows, currentPlatform(platform));
+    if (!ids) return 130;
+    const failed = await ui.installInteractive(
+      rows,
+      ids,
+      { dryRun: false, force: false },
+      env,
+      currentPlatform(platform),
+    );
+    ui.outro(failed, false);
+    return failed ? 1 : 0;
+  }
   const parsed = parseArgs(argv);
   if (parsed.command === "help") {
     io.stdout.write(`Cobalt2 themes for coding agents and developer tools.
@@ -74,6 +90,10 @@ Examples:
     return 0;
   }
   const rows = await loadCatalog();
+  if (parsed.command === "list" && fancy) {
+    ui.showList(rows, currentPlatform(platform));
+    return 0;
+  }
   if (parsed.command === "list") {
     const idWidth = Math.max(...rows.map((row) => row.id.length));
     const kindWidth = Math.max(...rows.map((row) => row.kind.length));
@@ -100,6 +120,18 @@ Examples:
       return 0;
     }
     throw new Error(`'${row.id}' is an installable file target, not a snippet`);
+  }
+  if (fancy) {
+    ui.intro();
+    const failed = await ui.installInteractive(
+      rows,
+      [row.id],
+      parsed.options,
+      env,
+      currentPlatform(platform),
+    );
+    ui.outro(failed, parsed.options.dryRun);
+    return failed ? 1 : 0;
   }
   const result = await installTarget(row, {
     dryRun: parsed.options.dryRun,

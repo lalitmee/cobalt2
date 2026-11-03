@@ -29,6 +29,10 @@ npx --yes cobalt2-theme install claude-code
 npx --yes cobalt2-theme install codex-cli --dry-run
 ```
 
+### Interactive mode
+
+In a terminal, run `npx --yes cobalt2-theme` with no arguments to pick targets from a checklist. Installs show a spinner, the destination, and the activation step for each target. `list` and `install <target>` use the same styled output in a terminal. Piped output, CI, and `TERM=dumb` keep the plain text output for scripts.
+
 ### Safe installs
 
 Both installers write only the selected theme file. They do not change application settings or activate themes automatically. An identical existing file is reported as already installed. A different existing file is preserved and installation stops; pass `--force` to save a timestamped backup before replacement.
