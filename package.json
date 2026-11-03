@@ -2,6 +2,29 @@
   "name": "cobalt2-theme",
   "version": "0.1.2",
   "description": "Cobalt2 themes and installers for coding agents and developer tools",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lalitmee/cobalt2.git"
+  },
+  "homepage": "https://github.com/lalitmee/cobalt2#readme",
+  "bugs": {
+    "url": "https://github.com/lalitmee/cobalt2/issues"
+  },
+  "keywords": [
+    "cobalt2",
+    "theme",
+    "claude-code",
+    "codex",
+    "gemini-cli",
+    "opencode",
+    "pi",
+    "tmux",
+    "ghostty",
+    "bat",
+    "terminal",
+    "cli"
+  ],
   "type": "module",
   "bin": {
     "cobalt2-theme": "bin/cobalt2-theme.js"

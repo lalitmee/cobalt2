@@ -8,7 +8,9 @@ export function parseArgs(argv) {
   const [inputCommand = "help", target, ...args] = argv;
   const command = ["-h", "--help"].includes(inputCommand)
     ? "help"
-    : inputCommand;
+    : ["-v", "-V", "--version"].includes(inputCommand)
+      ? "version"
+      : inputCommand;
   const options = { dryRun: false, force: false, configDir: undefined };
   for (let index = 0; index < args.length; index += 1) {
     const arg = args[index];
@@ -21,9 +23,14 @@ export function parseArgs(argv) {
       options.configDir = path;
     } else throw new Error(`unknown option: ${arg}`);
   }
-  if (!["help", "list", "install", "snippet"].includes(command))
-    throw new Error(`unknown command: ${command}`);
-  if ((command === "help" || command === "list") && target)
+  if (!["help", "version", "list", "install", "snippet"].includes(command))
+    throw new Error(
+      `unknown command: ${command}\nRun 'cobalt2-theme --help' for usage.`,
+    );
+  if (
+    (command === "help" || command === "version" || command === "list") &&
+    target
+  )
     throw new Error(`${command} does not accept a target`);
   if ((command === "install" || command === "snippet") && !target)
     throw new Error(`${command} requires a target`);
@@ -33,6 +40,11 @@ export function parseArgs(argv) {
   )
     throw new Error("install options are only valid with install");
   return { command, target, options };
+}
+
+async function packageVersion() {
+  const manifest = new URL("../package.json", import.meta.url);
+  return JSON.parse(await readFile(manifest, "utf8")).version;
 }
 
 function currentPlatform(platform = process.platform) {
@@ -63,8 +75,13 @@ export async function run(
     return failed ? 1 : 0;
   }
   const parsed = parseArgs(argv);
+  if (parsed.command === "version") {
+    io.stdout.write(`${await packageVersion()}\n`);
+    return 0;
+  }
   if (parsed.command === "help") {
-    io.stdout.write(`Cobalt2 themes for coding agents and developer tools.
+    io.stdout
+      .write(`Cobalt2 themes for coding agents and developer tools (v${await packageVersion()}).
 
 Usage:
   cobalt2-theme <command> [options]
@@ -74,6 +91,7 @@ Commands:
   install <target>           Install one theme target
   snippet <target>           Print a setup snippet or built-in instructions
   help                       Show this help
+  version                    Print the installed version (also -v, --version)
 
 Install options:
   --dry-run                  Show the destination without writing a file
@@ -86,6 +104,9 @@ Examples:
   npx --yes cobalt2-theme install codex-cli --dry-run
   npx --yes cobalt2-theme install claude-code --config-dir "$HOME/custom-config"
   npx --yes cobalt2-theme snippet codex-desktop
+  npx --yes cobalt2-theme --version
+
+Run with no arguments in a terminal to pick targets interactively.
 `);
     return 0;
   }

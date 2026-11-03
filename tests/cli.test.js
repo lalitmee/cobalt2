@@ -28,3 +28,10 @@ test("parses install flags and commands", () => {
   );
   assert.throws(() => parseArgs(["list", "extra"]), /does not accept a target/);
 });
+
+test("parses version aliases and rejects a target", () => {
+  for (const flag of ["--version", "-v", "-V", "version"])
+    assert.equal(parseArgs([flag]).command, "version");
+  assert.throws(() => parseArgs(["version", "x"]), /does not accept a target/);
+  assert.throws(() => parseArgs(["bogus"]), /--help/);
+});
