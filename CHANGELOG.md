@@ -2,6 +2,12 @@
 
 Notable changes to Cobalt2 Themes are recorded here.
 
+## 0.1.3 - 2026-11-04
+
+### Added
+
+- cli: add --version and package metadata
+
 ## 0.1.2 - 2026-11-04
 
 ### Added
