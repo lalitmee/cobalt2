@@ -3,6 +3,7 @@ claude-code|copy|linux,macos,windows|themes/claude/cobalt2.json|HOME/.claude/the
 codex-cli|copy|linux,macos,windows|themes/shared/cobalt2.tmTheme|CODEX_HOME/themes/cobalt2.tmTheme||README.md#codex-cli
 opencode|copy|linux,macos,windows|themes/opencode/cobalt2-custom.json|CONFIG_HOME/opencode/themes/cobalt2-custom.json||README.md#opencode
 pi|copy|linux,macos,windows|themes/pi/cobalt2.json|PI_AGENT_DIR/themes/cobalt2.json||README.md#pi
+gemini-cli|copy|linux,macos,windows|themes/gemini/cobalt2.json|HOME/.gemini/themes/cobalt2.json||README.md#gemini-cli
 tmux|copy|linux,macos|themes/tmux/cobalt2.conf|CONFIG_HOME/tmux/themes/cobalt2.conf||README.md#tmux
 ghostty|copy|linux,macos|themes/ghostty/Cobalt2|CONFIG_HOME/ghostty/themes/Cobalt2||README.md#ghostty
 bat|copy|linux,macos|themes/shared/cobalt2.tmTheme|CONFIG_HOME/bat/themes/Cobalt2.tmTheme||README.md#bat
@@ -12,4 +13,5 @@ vimium|snippet|linux,macos,windows|themes/vimium/cobalt2.css|||README.md#vimium
 codex-desktop|snippet|linux,macos,windows|snippets/codex-desktop.toml|||README.md#codex-desktop
 git-delta|snippet|linux,macos,windows|snippets/git-delta.gitconfig|||README.md#git-and-delta
 gum|snippet|linux,macos,windows|snippets/gum.sh|||README.md#gum
+workmux|snippet|linux,macos|snippets/workmux.yaml|||README.md#workmux
 wezterm|builtin|linux,macos,windows||||README.md#wezterm

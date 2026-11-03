@@ -1,0 +1,20 @@
+# Merge this theme block into ~/.config/workmux/config.yaml.
+theme:
+  scheme: default
+  mode: dark
+  custom:
+    current_row_bg: "#193549"
+    highlight_row_bg: "#0d3a58"
+    current_worktree_fg: "#FFC600"
+    dimmed: "#808080"
+    text: "#FFFFFF"
+    border: "#808080"
+    help_border: "#00AAFF"
+    help_muted: "#9E9E9E"
+    header: "#FFC600"
+    keycap: "#00AAFF"
+    info: "#80FCFF"
+    success: "#3AD900"
+    warning: "#FFC600"
+    danger: "#EE80E1"
+    accent: "#00AAFF"

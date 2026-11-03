@@ -47,7 +47,7 @@ npx --yes cobalt2-theme install codex-cli --config-dir "$HOME/custom-codex"
 | Linux    | Yes             | Yes                                |
 | Windows  | No              | Yes, for targets listed by the CLI |
 
-On Windows, the CLI offers Claude Code, Codex CLI, OpenCode, Pi, Vimium, Codex Desktop, Git/delta, Gum, and WezTerm. Targets such as Kitty, tmux, Ghostty, bat, and CopyQ are currently limited to macOS and Linux.
+On Windows, the CLI offers Claude Code, Codex CLI, OpenCode, Pi, Gemini CLI, Vimium, Codex Desktop, Git/delta, Gum, and WezTerm. Targets such as Kitty, tmux, Ghostty, bat, CopyQ, and Workmux are currently limited to macOS and Linux.
 
 ## Targets and activation
 
@@ -88,6 +88,22 @@ See [Pi themes](https://pi.ubitools.com/themes/).
 
 ```sh
 npx --yes cobalt2-theme install pi
+```
+
+### Gemini CLI
+
+Installs `~/.gemini/themes/cobalt2.json`. Gemini CLI only loads theme files inside your home directory. Set the path in `~/.gemini/settings.json`:
+
+```json
+{ "ui": { "theme": "~/.gemini/themes/cobalt2.json" } }
+```
+
+Use the absolute path if `~` is not expanded. Qwen Code, a Gemini CLI fork, may accept the same file; this is untested.
+
+See [Gemini CLI themes](https://geminicli.com/docs/cli/themes/).
+
+```sh
+npx --yes cobalt2-theme install gemini-cli
 ```
 
 ### tmux
@@ -172,6 +188,14 @@ Print the Cobalt2 Gum environment variables and source or merge the ones you wan
 
 ```sh
 npx --yes cobalt2-theme snippet gum
+```
+
+### Workmux
+
+Print the Cobalt2 `theme` block and merge it into your existing `~/.config/workmux/config.yaml`. Keep your agent, worktree, and sidebar settings as they are.
+
+```sh
+npx --yes cobalt2-theme snippet workmux
 ```
 
 ### WezTerm

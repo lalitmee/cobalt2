@@ -1,0 +1,17 @@
+{
+  "name": "Cobalt2",
+  "type": "custom",
+  "Background": "#193549",
+  "Foreground": "#FFFFFF",
+  "LightBlue": "#80FCFF",
+  "AccentBlue": "#00AAFF",
+  "AccentPurple": "#967EFB",
+  "AccentCyan": "#80FCFF",
+  "AccentGreen": "#9EFF80",
+  "AccentYellow": "#FFC600",
+  "AccentRed": "#FF628C",
+  "DiffAdded": "#2D7067",
+  "DiffRemoved": "#700009",
+  "Comment": "#0088FF",
+  "Gray": "#8fbfdc"
+}
