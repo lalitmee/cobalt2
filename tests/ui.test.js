@@ -15,8 +15,10 @@ test("formats targets with availability marks and activation hints", () => {
     { id: "pi", kind: "copy", platforms: ["linux"] },
     { id: "tmux", kind: "copy", platforms: ["macos"] },
   ];
-  const text = formatList(rows, "linux");
+  const text = formatList(rows, "linux", {});
   assert.match(text, /● pi/);
   assert.match(text, /○ tmux/);
+  const colored = formatList(rows, "linux", { COLORTERM: "truecolor" });
+  assert.match(colored, /\x1b\[38;2;/);
   assert.match(nextStep("gemini-cli"), /ui/);
 });

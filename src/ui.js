@@ -69,14 +69,14 @@ function platformsOf(row, platform) {
   return row.platforms.includes(platform);
 }
 
-export function formatList(rows, platform) {
+export function formatList(rows, platform, env = process.env) {
   const idWidth = Math.max(...rows.map((row) => row.id.length));
   return rows
     .map((row) => {
       const ok = platformsOf(row, platform);
-      const mark = ok ? paint("green", "●") : paint("dim", "○");
-      const id = paint(ok ? "blue" : "dim", row.id.padEnd(idWidth));
-      return `${mark} ${id}  ${paint("dim", KIND_LABEL[row.kind])}`;
+      const mark = ok ? paint("green", "●", env) : paint("dim", "○", env);
+      const id = paint(ok ? "blue" : "dim", row.id.padEnd(idWidth), env);
+      return `${mark} ${id}  ${paint("dim", KIND_LABEL[row.kind], env)}`;
     })
     .join("\n");
 }
