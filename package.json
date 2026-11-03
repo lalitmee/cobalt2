@@ -1,6 +1,6 @@
 {
   "name": "cobalt2-theme",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Cobalt2 themes and installers for coding agents and developer tools",
   "type": "module",
   "bin": {

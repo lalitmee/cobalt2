@@ -2,6 +2,12 @@
 
 Notable changes to Cobalt2 Themes are recorded here.
 
+## 0.1.2 - 2026-11-04
+
+### Added
+
+- themes: add Gemini CLI target and refresh pi and tmux themes
+
 ## 0.1.1 - 2026-10-10
 
 ### Added
